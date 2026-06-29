@@ -19,6 +19,12 @@ const projects = [
     tech: ['Mobile', 'Patent'],
   },
   {
+    title: 'SecureChat - Secure Messaging System',
+    description:
+      'A real-time secure chat application built with Flutter, Firebase, and Supabase. It supports OTP authentication, end-to-end encrypted messaging using AES, RSA, ChaCha20, secure media sharing, chat request approval, and privacy-focused communication.',
+    tech: ['Flutter', 'Dart', 'Firebase', 'Supabase', 'AES', 'RSA', 'ChaCha20', 'ECDSA'],
+  },
+  {
     title: 'College Event Management System',
     description: 'Platform for managing college events, registrations, and scheduling.',
     tech: ['Web', 'Database'],
@@ -30,29 +36,29 @@ const projects = [
   },
 ]
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project }) {
   return (
     <Tilt
       tiltMaxAngleX={8}
       tiltMaxAngleY={8}
       scale={1.02}
       glareEnable
-      glareMaxOpacity={0.15}
-      glareColor="#00d4ff"
+      glareMaxOpacity={0.12}
+      glareColor="#fcfdc8"
       glarePosition="all"
-      glareBorderRadius="1rem"
+      glareBorderRadius="2rem"
     >
       <motion.div
-        className="glass h-full rounded-2xl border border-white/10 p-6 transition hover:border-[#00d4ff]/40 hover:shadow-[0_0_35px_rgba(0,212,255,0.2)]"
+        className="glass-cream glass-reflection h-full p-7 transition hover:glow-cream"
         whileHover={{ y: -4 }}
       >
-        <h3 className="mb-3 text-xl font-bold text-white">{project.title}</h3>
-        <p className="mb-4 text-sm leading-relaxed text-gray-400">{project.description}</p>
+        <h3 className="mb-3 text-xl font-bold text-[#c69fd5]">{project.title}</h3>
+        <p className="mb-4 text-sm leading-relaxed text-[#c69fd5]/85">{project.description}</p>
         <div className="flex flex-wrap gap-2">
           {project.tech.map((t) => (
             <span
               key={t}
-              className="rounded-md bg-[#00d4ff]/10 px-2.5 py-1 text-xs font-medium text-[#00d4ff]"
+              className="rounded-lg bg-[#c69fd5]/12 px-2.5 py-1 text-xs font-semibold text-[#c69fd5]"
             >
               {t}
             </span>
@@ -68,16 +74,19 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, amount: 0.15 })
 
   return (
-    <section id="projects" ref={ref} className="section-padding bg-gradient-mesh">
+    <section id="projects" ref={ref} className="section-padding section-tone-cream">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          className="mb-12 text-center text-3xl font-bold text-white md:text-4xl"
+        <motion.div
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-gradient">Projects</span>
-        </motion.h2>
+          <p className="section-label">Portfolio</p>
+          <h2 className="section-title">
+            <span className="text-gradient">Projects</span>
+          </h2>
+        </motion.div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, i) => (
             <motion.div
@@ -86,7 +95,7 @@ export default function Projects() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <ProjectCard project={project} index={i} />
+              <ProjectCard project={project} />
             </motion.div>
           ))}
         </div>

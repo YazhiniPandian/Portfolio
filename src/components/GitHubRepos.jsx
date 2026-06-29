@@ -27,20 +27,23 @@ export default function GitHubRepos() {
   }, [])
 
   return (
-    <section id="github" className="section-padding bg-gradient-mesh">
+    <section id="github" className="section-padding section-tone-wisteria">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          className="mb-12 text-center text-3xl font-bold text-white md:text-4xl"
+        <motion.div
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-gradient">GitHub</span> Repositories
-        </motion.h2>
+          <p className="section-label section-label-light">Open source</p>
+          <h2 className="section-title section-title-light">
+            <span className="text-gradient-light">GitHub</span> Repositories
+          </h2>
+        </motion.div>
         {loading && (
           <div className="flex justify-center py-12">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#00d4ff] border-t-transparent" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#c69fd5] border-t-transparent" />
           </div>
         )}
         {error && (
@@ -56,7 +59,7 @@ export default function GitHubRepos() {
                 href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass flex flex-col rounded-xl p-5 transition hover:border-[#00d4ff]/40 hover:shadow-[0_0_25px_rgba(0,212,255,0.15)]"
+                className="glass-cream flex flex-col p-5 transition hover:glow-cream"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -64,13 +67,13 @@ export default function GitHubRepos() {
                 whileHover={{ y: -4 }}
               >
                 <div className="mb-2 flex items-center gap-2">
-                  <FaGithub className="text-[#00d4ff]" />
-                  <span className="font-semibold text-white">{repo.name}</span>
+                  <FaGithub className="text-[#c69fd5]" />
+                  <span className="font-semibold text-[#c69fd5]">{repo.name}</span>
                 </div>
-                <p className="mb-3 flex-1 text-sm text-gray-400 line-clamp-2">
+                <p className="mb-3 flex-1 text-sm text-[#c69fd5]/85 line-clamp-2">
                   {repo.description || 'No description'}
                 </p>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center gap-2 text-sm text-[#c69fd5]/75">
                   <FaStar className="text-yellow-400" />
                   <span>{repo.stargazers_count}</span>
                 </div>
@@ -89,7 +92,7 @@ export default function GitHubRepos() {
               href="https://github.com/YazhiniPandian"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-[#00d4ff]/50 px-6 py-3 text-[#00d4ff] transition hover:bg-[#00d4ff]/10"
+              className="btn-ghost-light inline-flex items-center gap-2 px-6 py-3"
             >
               <FaGithub /> View all on GitHub
             </a>

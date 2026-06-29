@@ -86,7 +86,7 @@ export default function Chatbot() {
                   <span
                     className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
                       msg.role === 'user'
-                        ? 'bg-[#00d4ff]/20 text-white'
+                        ? 'bg-[#c69fd5]/20 text-white'
                         : 'bg-white/10 text-gray-200'
                     }`}
                   >
@@ -103,12 +103,12 @@ export default function Chatbot() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && send()}
                 placeholder="Type a keyword..."
-                className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none focus:border-[#00d4ff]/50"
+                className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none focus:border-[#c69fd5]/50"
               />
               <button
                 type="button"
                 onClick={send}
-                className="rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#a855f7] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
+                className="rounded-xl bg-gradient-to-r from-[#c69fd5] to-[#a878b8] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
               >
                 Send
               </button>
@@ -118,7 +118,7 @@ export default function Chatbot() {
       </AnimatePresence>
       <motion.button
         type="button"
-        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-[#00d4ff] to-[#a855f7] text-white shadow-lg transition hover:shadow-[0_0_30px_rgba(0,212,255,0.5)]"
+        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-[#c69fd5] to-[#a878b8] text-white shadow-lg transition hover:shadow-[0_0_30px_rgba(198,159,213,0.45)]"
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? 'Close chatbot' : 'Open chatbot'}
         whileHover={{ scale: 1.05 }}

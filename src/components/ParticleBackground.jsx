@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 /**
- * Subtle animated particle background using Three.js
- * Used in Hero section for premium depth effect
+ * Floating lavender & cream particles with soft glass-like depth
  */
 export default function ParticleBackground() {
   const containerRef = useRef(null)
@@ -21,30 +20,45 @@ export default function ParticleBackground() {
     renderer.setClearColor(0x000000, 0)
     containerRef.current.appendChild(renderer.domElement)
 
-    const particlesGeometry = new THREE.BufferGeometry()
-    const count = 800
+    const count = 600
     const positions = new Float32Array(count * 3)
+    const colors = new Float32Array(count * 3)
 
-    for (let i = 0; i < count * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 80
+    const wisteria = new THREE.Color(0xc69fd5)
+    const cream = new THREE.Color(0xfcfdc8)
+
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 90
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 60
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 40
+
+      const mix = Math.random() > 0.35 ? wisteria : cream
+      colors[i * 3] = mix.r
+      colors[i * 3 + 1] = mix.g
+      colors[i * 3 + 2] = mix.b
     }
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    particlesGeometry.computeBoundingSphere()
 
-    const particlesMaterial = new THREE.PointsMaterial({
-      color: 0x00d4ff,
-      size: 0.08,
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+
+    const material = new THREE.PointsMaterial({
+      size: 0.12,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.55,
+      vertexColors: true,
       blending: THREE.AdditiveBlending,
+      sizeAttenuation: true,
     })
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial)
+
+    const particles = new THREE.Points(geometry, material)
     scene.add(particles)
 
     let frameId
     const animate = () => {
       frameId = requestAnimationFrame(animate)
-      particles.rotation.y += 0.0008
+      particles.rotation.y += 0.0006
+      particles.rotation.x += 0.0002
       renderer.render(scene, camera)
     }
     animate()
@@ -60,13 +74,13 @@ export default function ParticleBackground() {
       window.removeEventListener('resize', onResize)
       cancelAnimationFrame(frameId)
       renderer.dispose()
-      particlesGeometry.dispose()
-      particlesMaterial.dispose()
+      geometry.dispose()
+      material.dispose()
       if (containerRef.current?.contains(renderer.domElement)) {
         containerRef.current.removeChild(renderer.domElement)
       }
     }
   }, [])
 
-  return <div ref={containerRef} className="absolute inset-0 -z-10" aria-hidden="true" />
+  return <div ref={containerRef} className="absolute inset-0 -z-10 opacity-80" aria-hidden="true" />
 }

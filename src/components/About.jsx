@@ -28,24 +28,27 @@ export default function About() {
   }, [])
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding bg-gradient-mesh">
+    <section id="about" ref={sectionRef} className="section-padding section-tone-cream">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          className="mb-12 text-center text-3xl font-bold text-white md:text-4xl"
+        <motion.div
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-gradient">About</span> Me
-        </motion.h2>
+          <p className="section-label">Introduction</p>
+          <h2 className="section-title">
+            <span className="text-gradient">About</span> Me
+          </h2>
+        </motion.div>
         <motion.div
           ref={cardRef}
-          className="glass-strong rounded-2xl p-8 shadow-xl transition hover:shadow-[0_0_40px_rgba(0,212,255,0.15)] md:p-10"
-          whileHover={{ scale: 1.01 }}
+          className="glass-cream glass-reflection p-8 transition hover:glow-cream md:p-12"
+          whileHover={{ scale: 1.008 }}
         >
-          <p className="text-center text-lg leading-relaxed text-gray-300">{text}</p>
-          <p className="mt-6 text-center text-sm text-gray-500">
-            CGPA: <span className="font-semibold text-[#00d4ff]">8.37</span>
+          <p className="text-center text-lg leading-relaxed text-body-dark">{text}</p>
+          <p className="mt-8 text-center text-sm text-body-muted-dark">
+            CGPA: <span className="font-bold text-[#c69fd5]">8.4</span>
           </p>
         </motion.div>
       </div>

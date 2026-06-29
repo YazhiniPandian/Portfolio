@@ -1,123 +1,132 @@
-import { useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import Typed from 'typed.js'
-import { FaGithub, FaReact, FaPython, FaJava, FaShieldAlt } from 'react-icons/fa'
-import ParticleBackground from './ParticleBackground'
+import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram } from 'react-icons/fa'
+import { RESUME_PATH } from './Resume'
 
-const floatingIcons = [
-  { Icon: FaReact, label: 'React', delay: 0, x: '10%', y: '20%' },
-  { Icon: FaPython, label: 'Python', delay: 0.2, x: '85%', y: '25%' },
-  { Icon: FaJava, label: 'Java', delay: 0.4, x: '15%', y: '70%' },
-  { Icon: FaShieldAlt, label: 'Security', delay: 0.3, x: '80%', y: '65%' },
-  { Icon: FaGithub, label: 'GitHub', delay: 0.5, x: '50%', y: '85%' },
+const socialLinks = [
+  { Icon: FaGithub, href: 'https://github.com/YazhiniPandian', label: 'GitHub' },
+  { Icon: FaLinkedin, href: 'https://www.linkedin.com/in/abhiyazhinip2226/', label: 'LinkedIn' },
+  { Icon: FaEnvelope, href: 'mailto:abhiyazhini22@gmail.com', label: 'Email' },
+  { Icon: FaInstagram, href: '#', label: 'Instagram' },
 ]
 
-export default function Hero() {
-  const typedRef = useRef(null)
+const PROFILE_PATH = '/profile.png'
+const PROFILE_FALLBACK = '/profile-placeholder.svg'
 
-  useEffect(() => {
-    const options = {
-      strings: ['Full Stack Learner', 'Web Developer'],
-      typeSpeed: 60,
-      backSpeed: 40,
-      backDelay: 1500,
-      loop: true,
-    }
-    const typed = new Typed(typedRef.current, options)
-    return () => typed.destroy()
-  }, [])
+function HeroBackground() {
+  return (
+    <div className="hero-bg pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div className="hero-bg-cream absolute inset-0 bg-[#fcfdc8]" />
+      <div className="hero-bg-footer" />
+      <div className="hero-dot-grid absolute left-[4%] top-[18%] opacity-40" />
+      <div className="hero-dot-grid absolute right-[12%] top-[28%] opacity-30" />
+    </div>
+  )
+}
+
+export default function Hero() {
+  const [profileSrc, setProfileSrc] = useState(PROFILE_PATH)
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  return (
-    <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-mesh">
-      <ParticleBackground />
-      {/* Floating tech icons */}
-      {floatingIcons.map(({ Icon, label, delay, x, y }) => (
-        <motion.div
-          key={label}
-          className="absolute hidden rounded-xl glass p-3 text-2xl text-[#00d4ff] opacity-60 lg:flex"
-          style={{ left: x, top: y }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{
-            opacity: 0.6,
-            scale: 1,
-            y: [0, -8, 0],
-          }}
-          transition={{
-            opacity: { delay: 1 + delay },
-            y: { duration: 3, repeat: Infinity, ease: 'easeInOut', delay },
-          }}
-          aria-hidden
-        >
-          <Icon />
-        </motion.div>
-      ))}
+  const handleProfileError = () => {
+    setProfileSrc((prev) => {
+      if (prev === '/profile.png') return '/profile.jpg'
+      if (prev === '/profile.jpg') return PROFILE_FALLBACK
+      return prev
+    })
+  }
 
-      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
-        <motion.p
-          className="mb-2 text-sm font-medium uppercase tracking-widest text-[#00d4ff]"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Hello, I&apos;m
-        </motion.p>
-        <motion.h1
-          className="mb-3 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          Abhi Yazhini <span className="text-gradient">P</span>
-        </motion.h1>
-        <motion.p
-          className="mb-2 text-lg text-gray-400 sm:text-xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          Computer Science Engineering Student | Web Developer
-        </motion.p>
-        <motion.div
-          className="mb-6 min-h-[2rem] text-xl font-medium text-[#a855f7] sm:text-2xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <span ref={typedRef} />
-        </motion.div>
-        <motion.p
-          className="mb-10 text-gray-500"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          &ldquo;Securing Systems. Building Intelligent Solutions.&rdquo;
-        </motion.p>
-        <motion.div
-          className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-        >
-          <button
-            type="button"
-            onClick={() => scrollTo('projects')}
-            className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#a855f7] px-8 py-3.5 font-semibold text-white shadow-lg transition hover:shadow-[0_0_30px_rgba(0,212,255,0.5)]"
+  return (
+    <section id="hero" className="hero-landing relative min-h-screen overflow-hidden">
+      <HeroBackground />
+
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-4 pb-6 pt-28 sm:px-6 lg:px-8 lg:pb-8 lg:pt-32">
+        <div className="grid flex-1 items-end gap-6 lg:grid-cols-[1fr_1.05fr] lg:gap-2">
+          {/* Left — text on cream */}
+          <motion.div
+            className="pb-8 lg:pb-20"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
           >
-            <span className="relative z-10">View Projects</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollTo('contact')}
-            className="rounded-xl border border-[#00d4ff]/50 bg-white/5 px-8 py-3.5 font-semibold text-[#00d4ff] backdrop-blur transition hover:bg-[#00d4ff]/10 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]"
+            <span className="hero-hello-badge mb-6 inline-flex items-center gap-2 rounded-full border border-[#c69fd5]/25 bg-[#fcfdc8] px-4 py-2 text-sm font-medium text-[#c69fd5] shadow-sm">
+              ✨ Hello, I&apos;m
+            </span>
+
+            <h1 className="mb-4 max-w-xl text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.05] text-[#c69fd5]">
+              Abhi Yazhini P
+            </h1>
+
+            <p className="mb-4 text-lg font-medium text-[#c69fd5] sm:text-xl">
+              Software Developer | Full Stack Developer
+            </p>
+
+            <p className="mb-8 max-w-md text-base leading-relaxed text-[#c69fd5]/90 sm:text-lg">
+              I build beautiful, user-friendly web applications that solve real world problems.
+            </p>
+
+            <div className="mb-8 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => scrollTo('projects')}
+                className="btn-primary inline-flex items-center gap-2 px-7 py-3.5 text-sm sm:text-base"
+              >
+                View Projects
+                <span aria-hidden>→</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollTo('contact')}
+                className="btn-ghost inline-flex items-center gap-2 px-7 py-3.5 text-sm sm:text-base"
+              >
+                Contact Me
+              </button>
+              <a
+                href={RESUME_PATH}
+                download="Abhi_Yazhini_P_Resume.pdf"
+                className="btn-ghost hidden px-6 py-3.5 text-sm sm:inline-flex sm:text-base"
+              >
+                Resume
+              </a>
+            </div>
+
+            <div className="flex items-center gap-4">
+              {socialLinks.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  aria-label={label}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c69fd5]/20 text-[#c69fd5] transition hover:border-[#c69fd5]/45 hover:bg-[#c69fd5]/10"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right — cutout profile bound into background */}
+          <motion.div
+            className="hero-profile-zone relative mx-auto w-full max-w-[520px] lg:mx-0 lg:max-w-none"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
           >
-            Contact Me
-          </button>
-        </motion.div>
+            <div className="hero-profile-stage">
+              <div className="hero-profile-backdrop" aria-hidden="true" />
+              <img
+                src={profileSrc}
+                alt="Abhi Yazhini P"
+                className="hero-profile-image"
+                onError={handleProfileError}
+              />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   )

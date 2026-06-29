@@ -1,24 +1,16 @@
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FaReact, FaNode, FaAws, FaGitAlt } from 'react-icons/fa'
+import { FaReact, FaNode, FaAws, FaGitAlt, FaBuilding, FaLaptopCode } from 'react-icons/fa'
 import { SiSpringboot, SiMysql, SiPostman } from 'react-icons/si'
 
-gsap.registerPlugin(ScrollTrigger)
-
-const responsibilities = [
-  'Developed responsive UI using React.js',
-  'Integrated Spring Boot REST APIs',
-  'Backend support using Node.js',
-  'Database handling with MySQL',
-  'Cloud basics using AWS',
-  'API testing with Postman',
-  'Used IntelliJ and Maven',
-  'Version control using Git and GitHub',
+const highlights = [
+  { title: 'UI Development', desc: 'Responsive interfaces with React.js' },
+  { title: 'API Integration', desc: 'Spring Boot REST APIs & Postman testing' },
+  { title: 'Backend & Data', desc: 'Node.js support and MySQL databases' },
+  { title: 'Cloud & Tools', desc: 'AWS basics, IntelliJ, Maven, Git/GitHub' },
 ]
 
-const techIcons = [
+const techStack = [
   { Icon: FaReact, label: 'React' },
   { Icon: SiSpringboot, label: 'Spring Boot' },
   { Icon: FaNode, label: 'Node.js' },
@@ -30,77 +22,88 @@ const techIcons = [
 
 export default function Internship() {
   const sectionRef = useRef(null)
-  const lineRef = useRef(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
-
-  useEffect(() => {
-    if (!lineRef.current) return
-    gsap.fromTo(
-      lineRef.current,
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 60%' },
-      }
-    )
-  }, [])
+  const isInView = useInView(sectionRef, { once: true, amount: 0.15 })
 
   return (
-    <section id="experience" ref={sectionRef} className="section-padding bg-gradient-mesh">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          className="mb-16 text-center text-3xl font-bold text-white md:text-4xl"
+    <section id="experience" ref={sectionRef} className="section-padding section-tone-wisteria">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="mb-14 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-gradient">Internship</span> Experience
-        </motion.h2>
+          <p className="section-label section-label-light">Professional journey</p>
+          <h2 className="section-title section-title-light">
+            <span className="text-gradient-light">Experience</span>
+          </h2>
+        </motion.div>
 
-        <div className="relative">
-          {/* Vertical line */}
-          <div
-            ref={lineRef}
-            className="absolute left-6 top-0 h-full w-0.5 origin-top rounded-full bg-gradient-to-b from-[#00d4ff] to-[#a855f7] md:left-1/2 md:-translate-x-px"
-            style={{ transformOrigin: 'top' }}
-          />
-          {/* Timeline card */}
-          <motion.div
-            className="relative ml-14 md:ml-0 md:flex md:justify-center"
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="absolute left-2 top-6 h-4 w-4 rounded-full border-2 border-[#00d4ff] bg-[#0a0a0f] md:left-1/2 md:-translate-x-1/2" />
-            <div className="glass-strong rounded-2xl p-6 transition hover:shadow-[0_0_40px_rgba(0,212,255,0.12)] md:max-w-2xl md:p-8">
-              <div className="mb-2 text-sm font-medium text-[#00d4ff]">Yaazh Tech Pvt Ltd</div>
-              <h3 className="mb-1 text-xl font-bold text-white">
-                Frontend Developer Intern (Java Full Stack Development)
-              </h3>
-              <p className="mb-4 text-gray-400">Project: Bank Management System</p>
-              <ul className="mb-6 space-y-2 text-gray-300">
-                {responsibilities.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#a855f7]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-2">
-                {techIcons.map(({ Icon, label }) => (
-                  <span
-                    key={label}
-                    className="flex items-center gap-1.5 rounded-lg border border-[#00d4ff]/30 bg-[#00d4ff]/5 px-3 py-1.5 text-sm text-gray-300"
-                  >
-                    <Icon className="text-[#00d4ff]" /> {label}
-                  </span>
-                ))}
+        <motion.article
+          className="glass-wisteria glass-reflection overflow-hidden glow-wisteria"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          {/* Header strip */}
+          <div className="flex flex-col gap-4 border-b border-[#fcfdc8]/25 bg-[#c69fd5]/20 px-6 py-6 sm:flex-row sm:items-center sm:justify-between md:px-10">
+            <div className="flex items-start gap-4">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#fcfdc8]/25 text-2xl text-[#fcfdc8]">
+                <FaBuilding />
+              </span>
+              <div>
+                <h3 className="text-xl font-bold text-[#fcfdc8] md:text-2xl">
+                  Frontend Developer Intern
+                </h3>
+                <p className="text-body-muted-light">Java Full Stack Development · Yaazh Tech Pvt Ltd</p>
               </div>
             </div>
-          </motion.div>
-        </div>
+            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#fcfdc8]/20 px-4 py-2 text-sm font-medium text-[#fcfdc8]">
+              <FaLaptopCode className="text-[#fcfdc8]" />
+              Bank Management System
+            </span>
+          </div>
+
+          {/* Highlight grid */}
+          <div className="grid gap-4 p-6 sm:grid-cols-2 md:p-10 lg:grid-cols-4">
+            {highlights.map((item, i) => (
+              <motion.div
+                key={item.title}
+                className="glass-cream p-5 transition hover:glow-cream"
+                initial={{ opacity: 0, y: 16 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.2 + i * 0.08 }}
+              >
+                <div
+                  className="mb-3 h-1 w-10 rounded-full"
+                  style={{
+                    background: `linear-gradient(90deg, #fcfdc8, ${['#a878b8', '#b891c9', '#c69fd5', '#7a5890'][i]})`,
+                  }}
+                />
+                <h4 className="mb-1 font-semibold text-[#c69fd5]">{item.title}</h4>
+                <p className="text-sm leading-relaxed text-[#c69fd5]/85">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Tech stack row */}
+          <div className="border-t border-[#fcfdc8]/25 px-6 py-6 md:px-10">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-body-muted-light">
+              Stack & tools
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {techStack.map(({ Icon, label }) => (
+                <span
+                  key={label}
+                  className="flex items-center gap-2 rounded-xl border border-[#fcfdc8]/30 bg-[#fcfdc8]/15 px-4 py-2 text-sm font-medium text-[#fcfdc8] transition hover:bg-[#fcfdc8]/25"
+                >
+                  <Icon className="text-[#fcfdc8]" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+        </motion.article>
       </div>
     </section>
   )
